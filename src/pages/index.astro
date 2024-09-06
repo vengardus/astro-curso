@@ -1,16 +1,24 @@
 ---
+import MainLayout from "../layouts/MainLayout.astro";
 
+const name = "Vengardus";
 ---
+<MainLayout >
+	<h1>{name}</h1>
+		<p>Current time: {new Date().toLocaleTimeString()}</p>
+		<p id="time-now">Current Time Now:</p>	
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+		
+		<script>
+			const yearFooter = document.querySelector('footer') as HTMLElement; 
+			const timeNowParagraph = document.querySelector('#time-now') as HTMLParagraphElement;
+		
+			const year = new Date().getFullYear();
+			yearFooter.innerHTML = `<p>Copyright ${year}</p>`
+			setInterval(() => {
+				timeNowParagraph.innerHTML = `Current Time Now: ${new Date().toLocaleTimeString()}`;
+			}, 1000)
+		</script>
+</MainLayout>	
+	
+
