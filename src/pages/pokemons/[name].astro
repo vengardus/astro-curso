@@ -17,9 +17,14 @@ const { name } = Astro.params;
 const { url } = Astro.props;
 const id = url.split("/").at(-2);
 const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`
+const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
 ---
 
-<PokemonMainLayout title="Pokemon Page">
+<PokemonMainLayout 
+  title=`Pokemon Page #${id} - ${name}`
+  image={imageSrc}
+  descritpion={`Información sobre el pokemon ${name}`}
+>
   <section class="flex flex-col items-center">
     <div class="mb-3">
       <a href="/pokemons">Regresar</a>
