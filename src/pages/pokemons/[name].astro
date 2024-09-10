@@ -3,35 +3,45 @@ import type { GetStaticPaths } from "astro";
 import PokemonMainLayout from "../../layouts/PokemonMainLayout.astro";
 import PokemonCard from "../../components/pokemons/PokemonCard.astro";
 import type { PokemonListResponse } from "../../interfaces/pokemon-list.response.interface";
+import {Icon} from "astro-icon/components";
+import Title from "@/components/shared/Title.astro";
 
 export const getStaticPaths = (async () => {
   const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
   const pokemons = (await resp.json()) as PokemonListResponse;
   return pokemons.results.map((pokemon) => ({
-    params: { name: pokemon.name }, 
+    params: { name: pokemon.name },
     props: { url: pokemon.url },
-  }))
+  }));
 }) satisfies GetStaticPaths;
 
 const { name } = Astro.params;
 const { url } = Astro.props;
 const id = url.split("/").at(-2);
-const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`
-const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
+const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 ---
 
-<PokemonMainLayout 
+<PokemonMainLayout
   title=`Pokemon Page #${id} - ${name}`
   image={imageSrc}
   descritpion={`Información sobre el pokemon ${name}`}
 >
-  <section class="flex flex-col items-center">
-    <div class="mb-3">
-      <a href="/pokemons">Regresar</a>
+  <section class="flex flex-col items-center justify-center">
+    <div class="flex items-center">
+      <div class="flex flex-col justify-center items-center">
+        <!-- <a href="/pokemons">Regresar</a> -->
+        <button onclick="history.back()" class="bg-blue-500 p-2">Regresar</button>
+        <Title>{name}</Title>
+      </div>
+      <button class="ml-3">
+        <Icon name="heart-outline" size={35} color="red"></Icon>
+        <Icon name="heart-fill" size={35} color={"red"}></Icon>
+      </button>
     </div>
     <PokemonCard name={name} url={url} isBig />
-    <audio controls class="mt-5"> 
-      <source src={audioSrc} type="audio/ogg">
+    <audio controls class="mt-2">
+      <source src={audioSrc} type="audio/ogg" />
       No compoatible con el navegador
     </audio>
   </section>
