@@ -3,7 +3,7 @@ import type { GetStaticPaths } from "astro";
 import PokemonMainLayout from "../../layouts/PokemonMainLayout.astro";
 import PokemonCard from "../../components/pokemons/PokemonCard.astro";
 import type { PokemonListResponse } from "../../interfaces/pokemon-list.response.interface";
-import {Icon} from "astro-icon/components";
+import { Icon } from "astro-icon/components";
 import Title from "@/components/shared/Title.astro";
 
 export const getStaticPaths = (async () => {
@@ -28,21 +28,100 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
   descritpion={`Información sobre el pokemon ${name}`}
 >
   <section class="flex flex-col items-center justify-center">
-    <div class="flex items-center">
-      <div class="flex flex-col justify-center items-center">
-        <!-- <a href="/pokemons">Regresar</a> -->
-        <button onclick="history.back()" class="bg-blue-500 p-2">Regresar</button>
+    <div class="flex flex-col ">
+      <!-- <a href="/pokemons">Regresar</a> -->
+      <button onclick="history.back()" class="bg-blue-500 py-1 px-2 self-start"
+        >Regresar</button
+      >
+      <div class="flex justify-center items-center mt-2">
         <Title>{name}</Title>
+
+        <button
+          id="btn_favorite"
+          data-name=`${name}`
+          data-id=`${id}`
+          class="ml-3"
+        >
+          <Icon name="heart-outline" size={35} color="red" data-heart-outline />
+          <Icon
+            name="heart-fill"
+            size={35}
+            color={"red"}
+            class={"hidden"}
+            data-heart-fill
+          />
+        </button>
       </div>
-      <button class="ml-3">
-        <Icon name="heart-outline" size={35} color="red"></Icon>
-        <Icon name="heart-fill" size={35} color={"red"}></Icon>
-      </button>
     </div>
+
     <PokemonCard name={name} url={url} isBig />
+
     <audio controls class="mt-2">
       <source src={audioSrc} type="audio/ogg" />
       No compoatible con el navegador
     </audio>
   </section>
 </PokemonMainLayout>
+
+<script>
+  interface FavoritePokemon {
+    name: string;
+    id: string;
+  }
+
+  let favoritePokemons: FavoritePokemon[] = JSON.parse(
+    localStorage.getItem("favoritePokemons") ?? "[]",
+  );
+
+  document.addEventListener("astro:page-load", () => {
+    const btnFavorite = document.querySelector(
+      "#btn_favorite",
+    ) as HTMLButtonElement;
+
+    if (!btnFavorite) return;
+
+    const isFavorite = favoritePokemons.some(
+      (pokemon) => pokemon.id === btnFavorite.dataset.id,
+    );
+
+    const btnFavoriteHeartOutline = document.querySelector(
+      "[data-heart-outline]",
+    ) as HTMLButtonElement;
+    const btnFavoriteHeartFill = document.querySelector(
+      "[data-heart-fill]",
+    ) as HTMLButtonElement;
+
+    const name = btnFavorite.dataset.name;
+    const id = btnFavorite.dataset.id;
+
+    if (isFavorite) {
+      btnFavoriteHeartOutline.classList.toggle("hidden");
+      btnFavoriteHeartFill.classList.toggle("hidden");
+    }
+
+    const toggleFavoritePokemon = () => {
+      if (!name || !id) return;
+
+      if (isFavorite) {
+        favoritePokemons = favoritePokemons.filter(
+          (pokemon) => pokemon.id !== id,
+        );
+      } else {
+        favoritePokemons = [...favoritePokemons, { name, id }];
+      }
+      localStorage.setItem(
+        "favoritePokemons",
+        JSON.stringify(favoritePokemons),
+      );
+    };
+
+    btnFavorite.addEventListener("click", () => {
+      btnFavoriteHeartOutline.classList.toggle("hidden");
+      btnFavoriteHeartFill.classList.toggle("hidden");
+
+      toggleFavoritePokemon();
+    });
+
+    setHeart();
+  });
+</script>
