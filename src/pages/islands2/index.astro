@@ -1,0 +1,27 @@
+---
+import { Counter } from "@/components/shared/Counter";
+import Title from "@/components/shared/Title.astro";
+import PokemonMainLayout from "@/layouts/PokemonMainLayout.astro";
+
+
+---
+
+<!-- Ejemplo de persistencia de props entre islas e islas-2. Tambien del componente video -->
+
+<PokemonMainLayout title="Favorites">
+  <Title>Favoritos</Title>
+
+  <Counter 
+    transition:persist="counter"
+    transition:persist-props
+    client:visible 
+    initialValue={7}
+  >
+    <Title>Counter-Favoritos:</Title>
+  </Counter>  
+
+  <video controls="" autoplay="" transition:persist="playing-video">
+    <source src="https://ia804502.us.archive.org/33/items/GoldenGa1939_3/GoldenGa1939_3_512kb.mp4" type="video/mp4">
+  </video>
+
+</PokemonMainLayout>  

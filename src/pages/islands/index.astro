@@ -3,14 +3,30 @@ import { Counter } from "@/components/shared/Counter";
 import Title from "@/components/shared/Title.astro";
 import PokemonMainLayout from "@/layouts/PokemonMainLayout.astro";
 
-
+const initialCounter = 27;
 ---
+<!-- Ejemplo de persistencia de props entre islas e islas-2. Tambien del componente video -->
 
-<PokemonMainLayout title="Favorites">
-  <Title>Islas</Title>
+<PokemonMainLayout title="Islas">
+  <Title>Islas!</Title>
 
-  <div class="h-[2000px] bg-red-200"></div>
+  <!-- <div class="h-[2000px] bg-red-200"></div> -->
 
   <!-- <Counter client:only="solid-js"/> -->
-  <Counter client:visible/>
-</PokemonMainLayout>  
+  <Counter
+    transition:persist="counter"
+    transition:persist-props
+    client:visible
+    initialValue={initialCounter}
+  >
+    <Title>Counter-Islas:</Title>
+    <div>gardus</div>
+  </Counter>
+
+  <video controls="" autoplay="" transition:persist="playing-video">
+    <source
+      src="https://ia804502.us.archive.org/33/items/GoldenGa1939_3/GoldenGa1939_3_512kb.mp4"
+      type="video/mp4"
+    />
+  </video>
+</PokemonMainLayout>
