@@ -27,8 +27,12 @@ export const FavoritePokemonCard = ({ pokemon }: Props) => {
         <div className="flex flex-col gap-1 items-center">
           {
             <>
-              <img src={imageSrc} alt={pokemon.name} width={140} height={140} />
               <a href={`/pokemons/${pokemon.name}`}>
+                <img 
+                  src={imageSrc} alt={pokemon.name} 
+                  width={140} height={140} 
+                  style={{viewTransitionName: `${pokemon.name}-image`}}
+                />
                 <div className="flex gap-2">
                   <p className="">#{pokemon.id}</p>
                   <p className="capitalize font-bold">{pokemon.name}</p>
