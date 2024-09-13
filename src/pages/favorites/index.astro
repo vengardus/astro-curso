@@ -1,12 +1,15 @@
 ---
-import { Counter } from "@/components/shared/Counter";
+import { FavoritePokemons } from "@/components/pokemons/react/FavoritePokemons";
 import Title from "@/components/shared/Title.astro";
 import PokemonMainLayout from "@/layouts/PokemonMainLayout.astro";
+
 
 
 ---
 
 <PokemonMainLayout title="Favorites">
   <Title>Favoritos</Title>
+
+  <FavoritePokemons client:only="react"/>
 
 </PokemonMainLayout>  

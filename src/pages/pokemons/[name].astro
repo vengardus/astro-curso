@@ -64,10 +64,7 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
 </PokemonMainLayout>
 
 <script>
-  interface FavoritePokemon {
-    name: string;
-    id: string;
-  }
+  import type { FavoritePokemon } from "@/interfaces/favorite-pokemon.interface";
 
   let favoritePokemons: FavoritePokemon[] = JSON.parse(
     localStorage.getItem("favoritePokemons") ?? "[]",
