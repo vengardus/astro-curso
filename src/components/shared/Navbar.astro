@@ -1,11 +1,13 @@
 ---
 const links = [
   { name: "Home", href: "#" },
+  { name: "First", href: "/first" },
   { name: "Listado", href: "/pokemons" },
   { name: "Paginado", href: "/pokemons/1" },
   { name: "Favorites", href: "/favorites" },
   { name: "Islas", href: "/islands" },
   { name: "Islas-2", href: "/islands2" },
+  { name: "Blog", href: "/blog" },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -14,7 +16,7 @@ const currentPath = Astro.url.pathname;
 <!-- component --><!-- <nav class="bg-white shadow dark:bg-gray-800"> -->
 <nav class="bg-slate-800 shadow">
   <div
-    class="container flex items-center justify-center p-6 mx-auto text-gray-600 dark:text-gray-300"
+    class="container flex items-center justify-center p-6 mx-auto text-gray-600 dark:text-gray-300 flex-wrap"
   >
     {
       links.map((link) => (

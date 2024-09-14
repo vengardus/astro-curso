@@ -1,0 +1,24 @@
+---
+import FirstLayout from "../../layouts/FirstLayout.astro";
+
+const name = "Vengardus";
+---
+
+<FirstLayout>
+  <h1 class="text-3xl text-blue-500">{name}</h1>
+  <p>Current time: {new Date().toLocaleTimeString()}</p>
+  <p id="time-now">Current Time Now:</p>
+
+  <script>
+    const yearFooter = document.querySelector("footer") as HTMLElement;
+    const timeNowParagraph = document.querySelector(
+      "#time-now",
+    ) as HTMLParagraphElement;
+
+    const year = new Date().getFullYear();
+    yearFooter.innerHTML = `<p>Copyright ${year}</p>`;
+    setInterval(() => {
+      timeNowParagraph.innerHTML = `Current Time Now: ${new Date().toLocaleTimeString()}`;
+    }, 1000);
+  </script>
+</FirstLayout>
