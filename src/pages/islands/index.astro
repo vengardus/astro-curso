@@ -1,13 +1,12 @@
 ---
-
-import { Counter } from "@/components/shared/solid/Counter";
+import { Counter } from "@/components/shared/react/Counter";
 import Title from "@/components/shared/Title.astro";
 import PokemonMainLayout from "@/layouts/PokemonMainLayout.astro";
 
 const initialCounter = 27;
 ---
-<!-- Ejemplo de persistencia de props entre islas e islas-2. Tambien del componente video -->
 
+<!-- Ejemplo de persistencia de props entre islas e islas-2. Tambien del componente video -->
 <PokemonMainLayout title="Islas">
   <Title>Islas!</Title>
 
@@ -19,9 +18,12 @@ const initialCounter = 27;
     transition:persist-props
     client:visible
     initialValue={initialCounter}
+    client:only="react"
   >
-    <Title>Counter-Islas:</Title>
-    <div>gardus</div>
+    <>
+      <Title>Counter-Islas:</Title>
+      <div>gardus</div>
+    </>
   </Counter>
 
   <video controls="" autoplay="" transition:persist="playing-video">

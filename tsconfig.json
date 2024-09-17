@@ -17,6 +17,9 @@
       ],
       "@/config/*": [
         "src/config/*"
+      ],
+      "@/images/*": [
+        "src/assets/images/*"
       ]
     },
     "jsx": "react-jsx",

@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import MainLayout from "@/layouts/MainLayout.astro";
+import imgPost05Public from "../../../public/assets/images/post-05.png";
+import imgPost05Src from "@/images/post-05.png";
+
+
+---
+
+<MainLayout title="ImageTest Page">
+  <h1 class="text-3xl mb-7">ImageTest Page</h1>
+  
+  <img 
+    src="/assets/images/post-05.png" alt="" width="250" height="250"
+    loading="eager"
+  >
+
+  <Image 
+    src={imgPost05Public} alt="aa" width="250" height="250"
+  />
+
+  <div class="h-[300px]"></div>
+
+  <Image 
+    src={imgPost05Src} alt="" width="250" height="250"
+  />
+
+  <div class="h-[1300px]"></div>
+
+  
+  <img 
+    src={imgPost05Public.src} alt="" width="250" height="250" 
+    loading="lazy"
+  >
+</MainLayout>

@@ -15,6 +15,6 @@ export default defineConfig({
   integrations: [tailwind(), icon(), react({
     include: ['**/react/**/*'],
   }), solidJs({
-    include: ['**/solid/*'],
+    include: ['**/solid/**/*'],
   }), mdx()],
 });
