@@ -1,6 +1,7 @@
 ---
 import BlogMdxLayout from "@/layouts/BlogMdxLayout.astro";
 import type { GetStaticPaths } from "astro";
+import { Image, Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 
 export const getStaticPaths = (async () => {
@@ -22,6 +23,17 @@ const { Content, headings } = await post.render();
   <h1 class="text-xs text-gray-500 mb-0">{frontmatter.title}</h1>
   <h4 class="text-md text-gray-400 mb-0">{frontmatter.author}</h4>
   <h1>{frontmatter.description}</h1>
+
+  <Picture 
+    src={frontmatter.image}
+    alt=""
+    class="object-cover w-full my-5 h-[480px] rounded-md"  
+    width={600}
+    height={220}
+    quality={"medium"} 
+    formats={["avif", "webp"]}
+    transition:name={`${post.slug}-image`}
+  />
 
   <h3>Tabla de contenido</h3>
   <ol>

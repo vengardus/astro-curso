@@ -1,35 +1,66 @@
 ---
-import { Image } from "astro:assets";
+import { Image, Picture } from "astro:assets";
 import MainLayout from "@/layouts/MainLayout.astro";
 import imgPost05Public from "../../../public/assets/images/post-05.png";
 import imgPost05Src from "@/images/post-05.png";
-
-
 ---
 
 <MainLayout title="ImageTest Page">
   <h1 class="text-3xl mb-7">ImageTest Page</h1>
-  
-  <img 
-    src="/assets/images/post-05.png" alt="" width="250" height="250"
-    loading="eager"
-  >
 
-  <Image 
-    src={imgPost05Public} alt="aa" width="250" height="250"
+  <h1>1. Image with img</h1>
+  <img
+    src="/assets/images/post-05.png"
+    alt=""
+    width="250"
+    height="250"
+    loading="eager"
   />
+
+  <h1>2. Image with Image component de la ruta pública</h1>
+  <Image src={imgPost05Public} alt="aa" width="250" height="250" />
 
   <div class="h-[300px]"></div>
 
-  <Image 
-    src={imgPost05Src} alt="" width="250" height="250"
+  <h1>3. Image with Image component de la ruta src</h1>
+  <Image src={imgPost05Src} alt="" width="250" height="250" />
+
+  <h1>4. Image with Image component de la ruta src y quality low</h1>
+  <Image src={imgPost05Src} alt="" width="250" height="250" quality={"low"} />
+
+  <h1>5. Image with Image component de la ruta src y quality low</h1>
+  <Image src={imgPost05Src} alt="" width="250" height="250" quality={"high"} />
+
+  <h1>6. Image with Image component de la ruta src y format avif</h1>
+  <Image src={imgPost05Src} alt="" width="250" height="250" format="avif" />
+
+  <h1>
+    7. Image with Pictiure component de la ruta src y formats , widths, sizes
+  </h1>
+  <Picture
+    src={imgPost05Src}
+    alt=""
+    width="250"
+    height="250"
+    formats={["jpeg", "avif", "webp"]}
+    widths={[200, 400, 800, imgPost05Src.width]}
+    sizes={`(max-width: 360px) 240px, (max-width: 720px) 480px, 720px`}
   />
 
   <div class="h-[1300px]"></div>
 
-  
-  <img 
-    src={imgPost05Public.src} alt="" width="250" height="250" 
+  <h1>Fin: Image with img lazy. Image only is loading when it is visible</h1>
+  <img
+    src={imgPost05Public.src}
+    alt=""
+    width="250"
+    height="250"
     loading="lazy"
-  >
+  />
 </MainLayout>
+
+<style>
+  h1 {
+    @apply text-white my-2;
+  }
+</style>

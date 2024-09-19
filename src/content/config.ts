@@ -1,11 +1,11 @@
 import { defineCollection, z } from "astro:content";
 
 const blogCollection = defineCollection({
-  schema: z.object({
+  schema: ({image}) => z.object({
     title: z.string(),
     date: z.date(),
     description: z.string(),
-    image: z.string(),
+    image: image().refine((img)=> img.width < 1200, 'La imagen debe tener un ancho menor a 1200'),
 
     // Relation
     author: z.string(),
