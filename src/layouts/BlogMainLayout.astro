@@ -40,8 +40,13 @@ const {
   <body class="bg-slate-900 text-slate-100">
 
     <main class="m-auto w-full max-w-4xl flex-grow">
-      <a href="/" id="btn-back">Regresar</a>
+      <div class="flex justify-between">
+        <a href="/" id="btn-back">Regresar</a>
+        <a href="/blog/1" id="btn-back">Blog paginado</a>
+      </div>
+
       <slot />
+
     </main>
   </body><footer></footer>
 </html>
