@@ -10,6 +10,7 @@ const blogCollection = defineCollection({
         (img) => img.width < 1200,
         "La imagen debe tener un ancho menor a 1200",
       ),
+      isDraft: z.boolean().default(false),
 
       // Relation
       // author: z.string(),
@@ -22,10 +23,16 @@ const blogCollection = defineCollection({
 
 const authorCollection = defineCollection({
   type: "data",
-  schema: ({ image }) => z.object({
-    name: z.string(),
-    avatar: image(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      avatar: image(),
+      twitter: z.string(),
+      linkedIn: z.string(),
+      github: z.string(),
+      bio: z.string(),
+      subtitle: z.string(),
+    }),
 });
 
 // Debe tene el nombre collectiions

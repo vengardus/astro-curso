@@ -1,0 +1,14 @@
+---
+import AuthorCard from "@/components/author/AuthorCard.astro";
+import BlogMdxLayout from "@/layouts/BlogMdxLayout.astro";
+import { getCollection } from "astro:content";
+
+const authors = await getCollection("author");
+---
+
+<BlogMdxLayout title="Lista de Autores">
+  <h1>Lista de Autores</h1>
+  <section class="grid grid-cols-1 gap-8 mt-3 md:mt-8 md:grid-cols-2">
+    {authors.map((author) => <AuthorCard author={author} />)}
+  </section>
+</BlogMdxLayout>

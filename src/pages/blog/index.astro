@@ -5,7 +5,7 @@ import BlogMainLayout from "@/layouts/BlogMainLayout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { blogInfo } from "src/config/constants";
 
-const blogPosts:CollectionEntry<'blog'>[] = await getCollection("blog");
+const blogPosts:CollectionEntry<'blog'>[] = await getCollection("blog", (post) => post.data.isDraft === false);
 ---
 
 <BlogMainLayout title="Blog Page">
