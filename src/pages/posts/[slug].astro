@@ -1,7 +1,9 @@
 ---
 import BlogMdxLayout from "@/layouts/BlogMdxLayout.astro";
+import { Formatter } from "@/utils/formatter";
 import type { GetStaticPaths } from "astro";
 import { Image, Picture } from "astro:assets";
+import { getEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
 export const getStaticPaths = (async () => {
@@ -14,14 +16,34 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { post } = Astro.props;
+
 const frontmatter = post.data;
 
 const { Content, headings } = await post.render();
+
+const author = await getEntry("author", post.data.author.id );
 ---
 
 <BlogMdxLayout title={frontmatter.title}>
   <h1 class="text-xs text-gray-500 mb-0">{frontmatter.title}</h1>
-  <h4 class="text-md text-gray-400 mb-0">{frontmatter.author}</h4>
+  
+  <div class="flex items-center gap-3 mt-2">
+    <Image 
+      src={author.data.avatar}
+      alt={author.data.name}
+      class="object-cover w-10 h-10 rounded-full"
+      width={50}
+      height={50}
+      quality={"low"}
+    />
+    <div class="flex flex-col gap-1">
+      <a href="#" class="text-xs text-blue-500">
+        {author.data.name}
+      </a>
+      <span class="text-xs text-gray-200">{Formatter.formatDate(frontmatter.date)}</span>
+    </div>
+  </div>
+
   <h1>{frontmatter.description}</h1>
 
   <Picture 
